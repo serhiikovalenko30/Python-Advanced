@@ -119,36 +119,36 @@ class Point:
     def get_z(self):
         return self.z
 
-    def custom_add(self, other_point):
+    def __add__(self, other_point):
         new_x = self.get_x() + other_point.get_x()
         new_y = self.get_y() + other_point.get_y()
         new_z = self.get_z() + other_point.get_z()
         return Point(new_x, new_y, new_z)
 
-    def custom_sub(self, other_point):
+    def __sub__(self, other_point):
         new_x = self.get_x() - other_point.get_x()
         new_y = self.get_y() - other_point.get_y()
         new_z = self.get_z() - other_point.get_z()
         return Point(new_x, new_y, new_z)
 
-    def custom_mul(self, other_point):
+    def __mul__(self, other_point):
         new_x = self.get_x() * other_point.get_x()
         new_y = self.get_y() * other_point.get_y()
         new_z = self.get_z() * other_point.get_z()
         return Point(new_x, new_y, new_z)
 
-    def custom_div(self, other_point):
+    def __truediv__(self, other_point):
         new_x = self.get_x() / other_point.get_x()
         new_y = self.get_y() / other_point.get_y()
         new_z = self.get_z() / other_point.get_z()
         return Point(new_x, new_y, new_z)
 
-    def custom_eq(self, other_point):
+    def __eq__(self, other_point):
         if self.get_x() == other_point.get_x() and self.get_y() == other_point.get_y() \
                 and self.get_z() == other_point.get_z():
             return True
 
-    def custom_ne(self, other_point):
+    def __ne__(self, other_point):
         if self.get_x() != other_point.get_x() or self.get_y() != other_point.get_y() \
                 or self.get_z() != other_point.get_z():
             return True
@@ -156,6 +156,11 @@ class Point:
 
 point = Point(1, 2, 3)
 point2 = Point(1, 2, 3)
-print(point.custom_mul(point2).__dict__)
-print(point.custom_eq(point2))
-print(point.custom_ne(point2))
+add_point3 = point + point2
+sub_point3 = point - point2
+mul_point3 = point * point2
+idiv_point3 = point / point2
+
+print(add_point3.__dict__, sub_point3.__dict__, mul_point3.__dict__, idiv_point3.__dict__)
+print(point == point2)
+print(point != point2)
