@@ -156,6 +156,7 @@ class Point:
 
 point = Point(1, 2, 3)
 point2 = Point(1, 2, 3)
+
 add_point3 = point + point2
 sub_point3 = point - point2
 mul_point3 = point * point2
