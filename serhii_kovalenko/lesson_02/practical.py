@@ -147,11 +147,13 @@ class Point:
         if self.get_x() == other_point.get_x() and self.get_y() == other_point.get_y() \
                 and self.get_z() == other_point.get_z():
             return True
+        return False
 
     def __ne__(self, other_point):
         if self.get_x() != other_point.get_x() or self.get_y() != other_point.get_y() \
                 or self.get_z() != other_point.get_z():
             return True
+        return False
 
 
 point = Point(1, 2, 3)
