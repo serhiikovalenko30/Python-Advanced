@@ -93,6 +93,7 @@ store2._set_quantity_of_goods_sold(50)
 
 print(store1._get_total_quantity_of_goods_sold())
 
+
 # task 3
 class Point:
     def __init__(self, x, y, z):
