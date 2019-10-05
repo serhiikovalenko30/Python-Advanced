@@ -66,7 +66,7 @@ print(Passenger('opel', 'v3').__dict__)
 class Store:
     QUANTITY_OF_GOODS_SOLD = 0
 
-    def __init__(self, store_name, quantity_of_goods_sold):
+    def __init__(self, store_name, quantity_of_goods_sold=0):
         self._store_name = store_name
         self._quantity_of_goods_sold = quantity_of_goods_sold
         self._set_total_quantity_of_goods_sold(quantity_of_goods_sold)
@@ -85,8 +85,8 @@ class Store:
         Store.QUANTITY_OF_GOODS_SOLD += quantity
 
 
-store1 = Store('booking', 0)
-store2 = Store('rozetka', 0)
+store1 = Store('booking')
+store2 = Store('rozetka')
 
 store1._set_quantity_of_goods_sold(10)
 store2._set_quantity_of_goods_sold(50)
