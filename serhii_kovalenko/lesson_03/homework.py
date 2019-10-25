@@ -1,21 +1,17 @@
 # Создать класс структуры данных Стек, Очередь.
-class List:
-    _list = None
 
-    def __new__(cls, *args, **kwargs):
-        if not cls._list:
-            cls._list = super().__new__(cls)
-            return cls._list
-        raise Exception('List already exists')
+class Stack:
 
     def __init__(self):
         self._items = []
 
-    def enqueue(self, item):
+    def push(self, item):
         self._items.append(item)
 
-    def dequeue(self):
-        return self._items.pop(0)
+    def pop(self):
+        if self.is_empty():
+            raise Exception('Stack is empty')
+        return self._items.pop()
 
     def size(self):
         return len(self._items)
@@ -24,13 +20,24 @@ class List:
         return True if not self.size() else False
 
 
-class Stack(List):
-    def dequeue(self):
-        return self._items.pop()
+class Queue:
 
+    def __init__(self):
+        self._items = []
 
-class Queue(List):
-    pass
+    def push(self, item):
+        self._items.append(item)
+
+    def pop(self):
+        if self.is_empty():
+            raise Exception('Queue is empty')
+        return self._items.pop(0)
+
+    def size(self):
+        return len(self._items)
+
+    def is_empty(self):
+        return True if not self.size() else False
 
 
 # Создать класс комплексного числа и реализовать для него арифметические операции.
