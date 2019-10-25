@@ -131,7 +131,7 @@ class Registration:
                 db[login] = time.time()
 
             # после корректной регистрации я сразу авторизируюсь
-            return Authorization.authorization(login, password)
+            return cls.authorization(login, password)
 
     @classmethod # проверку на валидность пароля (содержание символов и цифр)
     def password_validator(cls, password):
@@ -154,14 +154,14 @@ class Authorization(Registration):
             with shelve.open(user_password_db) as db:
                 if db.get(login, "Undefined") == 'Undefined':
                     print(f'Login does not exist Try again')
-                    return Authorization.authorization()
+                    return cls.authorization()
                 else:
                     if db[login] == password:
                         print(f'You are logged in as "{login}"')
                         return User(login)
                     else:
                         print(f'Incorrect password. Try again')
-                        return Authorization.authorization()
+                        return cls.authorization()
         else:
             with shelve.open(user_password_db) as db:
                 if db[login] == password:
@@ -172,12 +172,12 @@ class Authorization(Registration):
     @classmethod # возможность выхода из учетной записи
     def quit(cls):
         print('You left.')
-        Authorization.authorization()
+        cls.authorization()
 
     @classmethod # вход в новый аккаунт
     def change_account(cls):
         print('Change account')
-        Authorization.authorization()
+        cls.authorization()
 
 
 class User(Authorization):
