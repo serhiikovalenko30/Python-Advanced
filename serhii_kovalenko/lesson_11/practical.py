@@ -58,6 +58,12 @@ def set_address(id, address):
         db.execute(sql_query, [address, id])
 
 
+def set_wishes(id, wishes):
+    sql_query = """update user_anketa set wishes = ? where id = ?"""
+    with ContextManagerForSQL(db_name) as db:
+        db.execute(sql_query, [wishes, id])
+
+
 bot = telebot.TeleBot(c.TOKEN)
 
 
@@ -86,14 +92,21 @@ def get_address(message):
 
 
 @bot.message_handler(func=lambda message: len(get_information_from_form(message.chat.id)) == 4)
-def fin(message):
+def get_wishes(message):
     set_address(message.chat.id, message.text)
+    bot.send_message(message.chat.id, 'write your wishes')
+
+
+@bot.message_handler(func=lambda message: len(get_information_from_form(message.chat.id)) == 5)
+def end_form(message):
+    set_wishes(message.chat.id, message.text)
     bot.send_message(message.chat.id,
                      f'Thank. I remember Your. \n'
                      f'Name: {get_information_from_form(message.chat.id)[1]}\n'
                      f'Phone: {get_information_from_form(message.chat.id)[2]}\n'
                      f'Email: {get_information_from_form(message.chat.id)[3]}\n'
-                     f'Address: {get_information_from_form(message.chat.id)[4]}\n')
+                     f'Address: {get_information_from_form(message.chat.id)[4]}\n'
+                     f'And Your wishes: {get_information_from_form(message.chat.id)[5]}')
 
 
 bot.polling(none_stop=True)
