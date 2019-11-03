@@ -107,59 +107,81 @@ class Authorization:
     def __init__(self, db_name):
         self._db_name = db_name
 
-    def login(self, login):
-        sql_query = """ select title
+    def login(self):
+        login = input('Enter your login: \n')
+        sql_query = """ select login
                         from users
-                        left join role on users.role_id = role.id
                         where login = ?
                     """
         with ContextManagerForSQL(self._db_name) as db:
-            title = db.execute(sql_query, [login]).fetchone()
-            return title
+            result_login = db.execute(sql_query, [login]).fetchone()
+
+        if not result_login:
+            print('Login field')
+        else:
+            password = input('Enter your password: \n')
+            sql_query = """ select password 
+                            from users
+                            where login = ?
+                        """
+            with ContextManagerForSQL(self._db_name) as db:
+                result_password = db.execute(sql_query, [login]).fetchone()
+            if not password == result_password[0]:
+                print('Incorrect password')
+            else:
+                sql_query = """ select title
+                                from users
+                                left join role on users.role_id = role.id
+                                where login = ?
+                            """
+                with ContextManagerForSQL(self._db_name) as db:
+                    title = db.execute(sql_query, [login]).fetchone()
+                    return title
 
 
 db = 'db_students.db'
-login = input('Enter your login: \n')
+login = Authorization(db).login()
 
-if Authorization(db).login(login)[0] == 'admin':
-    print('Hi admin')
-    admin = Admin(db)
+if login:
+    if login[0] == 'admin':
+        print('Hi admin')
+        admin = Admin(db)
 
-    user_input = int(input('Enter 1 for add student\n'
-                           'Enter 2 for change students\n'))
-    if user_input == 1:
-        first_name = input('Enter first name: ')
-        last_name = input('Enter last name: ')
-        id_student_card = int(input('Enter student card id: '))
-        id_faculty = int(input('Enter student faculty id: '))
-        id_group = int(input('Enter student group id: '))
-        admin.add_student(first_name, last_name, id_student_card, id_faculty, id_group)
-    elif user_input == 2:
-        id = int(input('Enter student id: '))
-        first_name = input('Enter first name: ')
-        last_name = input('Enter last name: ')
-        id_student_card = int(input('Enter student card id: '))
-        id_faculty = int(input('Enter student faculty id: '))
-        id_group = int(input('Enter student group id: '))
-        admin.change_student(id, first_name, last_name, id_student_card, id_faculty, id_group)
-    else:
-        print('Incorrect enter')
+        user_input = int(input('Enter 1 for add student\n'
+                               'Enter 2 for change students\n'))
+        if user_input == 1:
+            first_name = input('Enter first name: ')
+            last_name = input('Enter last name: ')
+            id_student_card = int(input('Enter student card id: '))
+            id_faculty = int(input('Enter student faculty id: '))
+            id_group = int(input('Enter student group id: '))
+            admin.add_student(first_name, last_name, id_student_card, id_faculty, id_group)
+        elif user_input == 2:
+            id = int(input('Enter student id: '))
+            first_name = input('Enter first name: ')
+            last_name = input('Enter last name: ')
+            id_student_card = int(input('Enter student card id: '))
+            id_faculty = int(input('Enter student faculty id: '))
+            id_group = int(input('Enter student group id: '))
+            admin.change_student(id, first_name, last_name, id_student_card, id_faculty, id_group)
+        else:
+            print('Incorrect enter')
 
-elif Authorization(db).login(login)[0] == 'reader':
-    print('Hi user')
-    user = User(db)
+    elif login[0] == 'reader':
+        print('Hi user')
+        user = User(db)
 
-    user_input = int(input('Enter 1 for find student\nEnter 2 for list excellent students\n'
-                           'Enter 3 for students info\nEnter 4 for students list\n'))
-    if user_input == 1:
-        student_card = input('Enter number student card: ')
-        user.find_student(student_card)
-    elif user_input == 2:
-        user.get_list_of_excellent_students()
-    elif user_input == 3:
-        student_card = input('Enter number student card: ')
-        user.get_student_info()
-    elif user_input == 4:
-        user.get_student_list()
-    else:
-        print('Incorrect enter')
+        user_input = int(input('Enter 1 for find student\nEnter 2 for list excellent students\n'
+                               'Enter 3 for students info\nEnter 4 for students list\n'))
+        if user_input == 1:
+            student_card = input('Enter number student card: ')
+            user.find_student(student_card)
+        elif user_input == 2:
+            user.get_list_of_excellent_students()
+        elif user_input == 3:
+            student_card = input('Enter number student card: ')
+            user.get_student_info()
+        elif user_input == 4:
+            user.get_student_list()
+        else:
+            print('Incorrect enter')
