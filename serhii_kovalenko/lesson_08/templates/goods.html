@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Store</title>
+</head>
+    <body>
+        <div>
+            <h3>Товары:</h3>
+                <div>
+                    {% for id, name in goods.items() %}
+                    <a href="/goods_detail/{{id}}">{{ name }}</a>
+                    </br>
+                    {% endfor %}
+                </div>
+       </div>
+    </body>
+</html>

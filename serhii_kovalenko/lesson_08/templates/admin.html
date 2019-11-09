@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Store</title>
+</head>
+    <body>
+        <div>
+            <h3>Создать категорю:</h3>
+            <form method="post", action="add_category">
+                <b>Введите название категории:</b><input name="category" type="text" required></br>
+                <button>Создать</button>
+            </form>
+
+            <h3>Создать товар:</h3>
+            <form method="post", action="add_good">
+                <b>Введите название товара:</b><input name="name" type="text" required></br>
+                <b>Введите название категории:</b>
+                    <select required name="category_id" >
+                        {% for id, category_name in category.items() %}
+                        <option value='{{ id }}'>{{ category_name }}</option>
+                        {% endfor %}
+                    </select></br>
+                <b>Отметьте наличие товара на складе (1-есть/0-нет):</b>
+                    <select required name="in_stock" >
+                        <option value='1'>Есть на складе</option>
+                        <option value='0'>Нет на складе</option>
+                    </select></br>
+                <b>Укажите цену товара:</b><input name="price" type="number" required></br>
+                <b>Укажите количество товара:</b><input name="count" type="number" required></br>
+                <button>Создать</button>
+            </form>
+
+       </div>
+    </body>
+</html>
