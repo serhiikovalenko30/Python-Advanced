@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CRUD Students</title>
+</head>
+    <body>
+
+        <div>
+            <h1>CRUD Students</h1>
+       </div>
+
+        <div>
+
+            <div>
+
+                <form method="post" action="insert">
+                    <table>
+                        <tr>
+                            <th>Name</th>
+                            <th>Group</th>
+                            <th>Curator</th>
+                            <th>Faculty</th>
+                        </tr>
+                        <tr>
+                            <th><input name="name" type="text" required></th>
+                            <th><input name="group_name" type="text" required></th>
+                            <th><input name="curator_name" type="text" required></th>
+                            <th><input name="faculty_name" type="text" required></th>
+                        </tr>
+                    </table>
+                    <button>Add Student</button>
+                </form>
+                <br>
+
+                <h2>Student list</h2>
+
+                <table>
+
+                    <tr>
+                        <th>Name</th>
+                        <th>Group</th>
+                        <th>Curator</th>
+                        <th>Faculty</th>
+                        <th>Mark 1</th>
+                        <th>Mark 2</th>
+                        <th>Mark 3</th>
+                        <th> </th>
+                        <th> </th>
+                    </tr>
+
+                    {% for student in students %}
+                        <tr>
+                            <td>{{ student.name }}</td>
+                            <td>{% for name in student.group_name %}{{ name.group_name }}{% endfor %}</td>
+                            <td>{% for name in student.curator_name %}{{ name.curator_name }}{% endfor %}</td>
+                            <td>{% for name in student.faculty_name %}{{ name.faculty_name }}{% endfor %}</td>
+                            <td>{% for name in student.marks[:1] %}{{ name.marks }}{% endfor %}</td>
+                            <td>{% for name in student.marks[1:2] %}{{ name.marks }}{% endfor %}</td>
+                            <td>{% for name in student.marks[2:3] %}{{ name.marks }}{% endfor %}</td>
+                            <td>
+                                <form method="post" action="edit">
+                                    <input type="hidden" name="edit" value="{{ student.id }}"><button>Edit</button>
+                                </form>
+                            </td>
+                            <td>
+                                <form method="post" action="delete">
+                                    <input type="hidden" name="delete" value="{{ student.id }}"><button>Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </body>
+
+</html>

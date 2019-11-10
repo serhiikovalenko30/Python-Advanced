@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CRUD Students</title>
+</head>
+    <body>
+
+        <div>
+
+            <div>
+                <form method="post" action="update">
+                    <table>
+                        <tr>
+                            <th> </th>
+                            <th>Name</th>
+                            <th>Group</th>
+                            <th>Curator</th>
+                            <th>Faculty</th>
+                        </tr>
+
+                        <tr>
+                            <th>Now:</th>
+                            <td>{{ student.name }}</td>
+                            <td>{% for name in student.group_name %}{{ name.group_name }}{% endfor %}</td>
+                            <td>{% for name in student.curator_name %}{{ name.curator_name }}{% endfor %}</td>
+                            <td>{% for name in student.faculty_name %}{{ name.faculty_name }}{% endfor %}</td>
+                        </tr>
+
+                        <tr>
+                            <th>For change:</th>
+                            <td><input name="name" type="text" required></td>
+                            <td><input name="group_name" type="text" required></td>
+                            <td><input name="curator_name" type="text" required></td>
+                            <td><input name="faculty_name" type="text" required></td>
+                            <td><input type="hidden" name="update" value="{{ student.id }}"><button>Edit</button></td>
+                        </tr>
+                    </table>
+                </form>
+
+            </div>
+
+        </div>
+
+    </body>
+
+</html>
