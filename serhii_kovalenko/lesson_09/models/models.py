@@ -21,17 +21,18 @@ class Faculty(Document):
 
 class Student(Document):
     name = StringField(max_length=128)
-    group_name = ListField(ReferenceField(Group))
+    group_name = ReferenceField(Group)  # fixed. was  ListField(ReferenceField(Group))
     marks = ListField(ReferenceField(Marks))
-    curator_name = ListField(ReferenceField(Curator))
-    faculty_name = ListField(ReferenceField(Faculty))
+    curator_name = ReferenceField(Curator)  # fixed. was  ListField(ReferenceField(Curator))
+    faculty_name = ReferenceField(Faculty)  # fixed. was  ListField(ReferenceField(Faculty))
 
     def avg_marks(self):
-        amount, count = 0, 0
-        for mark in self.marks:
-            amount += mark.marks
-            count += 1
-        return amount/count if count != 0 else 0
+        # amount, count = 0, 0
+        # for mark in self.marks:
+        #     amount += mark.marks
+        #     count += 1
+        # return sum(self.marks) / len(self.marks)
+        return sum(self.marks) / len(self.marks)
 
     @classmethod
     def get_top_star_students_by_faculty(cls, faculty=None):

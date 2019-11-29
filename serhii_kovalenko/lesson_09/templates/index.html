@@ -52,9 +52,9 @@
                     {% for student in students %}
                         <tr>
                             <td>{{ student.name }}</td>
-                            <td>{% for name in student.group_name %}{{ name.group_name }}{% endfor %}</td>
-                            <td>{% for name in student.curator_name %}{{ name.curator_name }}{% endfor %}</td>
-                            <td>{% for name in student.faculty_name %}{{ name.faculty_name }}{% endfor %}</td>
+                            <td>{{ student.group_name }}</td>
+                            <td>{{ student.curator_name }}</td>
+                            <td>{{ student.faculty_name }}</td>
                             <td>{% for name in student.marks[:1] %}{{ name.marks }}{% endfor %}</td>
                             <td>{% for name in student.marks[1:2] %}{{ name.marks }}{% endfor %}</td>
                             <td>{% for name in student.marks[2:3] %}{{ name.marks }}{% endfor %}</td>
